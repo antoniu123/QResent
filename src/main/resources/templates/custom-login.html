@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="" lang="en">
+<head lang="en">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+    <title>Aplicatie Evidenta Scoala</title>
+</head>
+<body>
+<img th:src="@{/img/index.jpg}" class="img-fluid" alt="Responsive image" height="auto"/>
+<div class="login-container">
+    <h1> LOG IN University </h1>
+
+    <p th:if="${param.error}" class="error">
+        Invalid username or password
+    </p>
+    <p th:if="${param.logout}" class="error">
+        You have been logged out successfully
+    </p>
+
+    <div class="login-card">
+        <div class="login-form">
+            <form class="login-card" th:action="@{/app-login}" method="POST">
+
+                <div class="input-group input-sm">
+                    <div class="col-sm-3">
+                        <label class="input-group-addon" >USERNAME
+                            <input type="text" name="username" class="form-control" autofocus="autofocus"
+                                   placeholder="Enter Username"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group input-sm">
+                    <div class="col-sm-3">
+                        <label class="input-group-addon">
+                            <input type="password" name="password" class="form-control" placeholder="Enter Password"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-default" value="Log in">LOG IN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html> 

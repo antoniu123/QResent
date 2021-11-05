@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Eroare</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <style th:inline="text">
+    label:after {
+		   content: "*";
+		   color: red;
+	}
+	body {
+    background: #43cea2;
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2); 
+    background: linear-gradient(to right, #185a9d, #43cea2);
+    color: #fff;
+    text-align: center;
+    }
+    .page-content {
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    top: 35%;
+    bottom: 0;
+    }
+
+	h1 {
+	    font-size: 46px;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
+	
+	h2 {
+	    font-size: 34px;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
+		
+</style>
+</head>
+<body>
+        <div id="created" th:text="${#dates.format(timestamp)}">July 11,2012 2:17:16 PM CDT</div>
+		<div>
+			There was an unexpected error (type=<span th:text="${error}">Bad</span>, status=<span th:text="${status}">500</span>).
+		</div>
+		<div th:text="${message}">Fake content</div>
+		<div>Please contact the administrator with the above information.</div>
+</body>
+</html>

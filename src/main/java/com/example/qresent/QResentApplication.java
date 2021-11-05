@@ -1,13 +1,13 @@
-package com.example.mps1;
+package com.example.qresent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Mps1Application {
+public class QResentApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Mps1Application.class, args);
+		SpringApplication.run(QResentApplication.class, args);
 	}
 
 }
