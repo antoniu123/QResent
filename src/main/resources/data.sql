@@ -37,6 +37,12 @@ CREATE TABLE materie
     bonus VARCHAR(100) NOT NULL
 );
 
+INSERT INTO materie(info, cerinte, bonus) values('Analiza Algoritmilor', '50% parcurs + 50% examen', '1p prezentare');
+INSERT INTO materie(info, cerinte, bonus) values('Structuri de date', '50% parcurs + 50% examen', '1p prezentare');
+INSERT INTO materie(info, cerinte, bonus) values('Protocoale de comunicatii', '50% parcurs + 50% examen', '1p prezentare');
+INSERT INTO materie(info, cerinte, bonus) values('Psihoinventica', '50% parcurs + 50% examen', '1p prezentare');
+
+
 CREATE TABLE student_materie
 (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
