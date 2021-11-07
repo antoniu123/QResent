@@ -61,11 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("grades/all").access("hasRole('TEACHER')")
 				.antMatchers("grades/{gradeId}").access("hasRole('STUDENT')")
 
-				.antMatchers("/averages").access("hasRole('TEACHER')")
-				.antMatchers("averages/action}").access("hasRole('TEACHER')")
-				.antMatchers("averages/save").access("hasRole('TEACHER')")
-				.antMatchers("student/{studentId}/average").access("hasRole('STUDENT')")
-
 				.antMatchers("/css/evidenta.css").permitAll()
 				.antMatchers("/img/index.jpg").permitAll()
 
