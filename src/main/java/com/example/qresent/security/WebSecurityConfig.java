@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/student/delete/{id}").access("hasRole('ADMIN')")
 				.antMatchers("/students").access("hasRole('ADMIN') or hasRole('TEACHER')")
 				.antMatchers("/students/{id}").access("hasRole('STUDENT')")
+				.antMatchers("/materii").access("hasRole('TEACHER')")
 
 				.antMatchers("/grade").access("hasRole('TEACHER')")
 				.antMatchers("grade/delete/{gradeId}").access("hasRole('TEACHER')")
