@@ -83,6 +83,9 @@ public class StudentMateriePrezentaService {
 	}
 
 	public void setPrezenta(UUID uuid){
+		List<StudentMateriePrezenta> studentMateriePrezentaList = studentMateriePrezentaRepository.findAllByUuid(uuid);
+		if (studentMateriePrezentaList.isEmpty())
+			throw new RuntimeException("valoare UUID incorecta");
 		int rez = studentMateriePrezentaRepository.setPrezenta(uuid);
 		if (rez==0) {
 			throw new RuntimeException("prezenta nu este confirmata");
