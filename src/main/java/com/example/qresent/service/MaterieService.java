@@ -28,7 +28,7 @@ public class MaterieService {
         materieRepository.delete(materieRepository.findById(id).orElseGet(Materie::new));
     }
 
-    public Optional<Materie> findById(Long id) {
+    public Optional<Materie> findMaterieById(Long id) {
         return materieRepository.findById(id);
     }
 

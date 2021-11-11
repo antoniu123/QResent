@@ -16,15 +16,15 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "STUDENT_MATERIE_PREZENTA")
-public class Student_Materie_Prezenta {
+public class StudentMateriePrezenta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "STUDENT_MATERIE_ID")
-	private Student_Materie student_materie;
+	private StudentMaterie studentMaterie;
 
 	@Column(name = "DATA_CURS", nullable = false)
 	@Size(min = 3, max = 30)
@@ -48,12 +48,12 @@ public class Student_Materie_Prezenta {
 		this.id = id;
 	}
 
-	public Student_Materie getMaterie() {
-		return student_materie;
+	public StudentMaterie getStudentMaterie() {
+		return studentMaterie;
 	}
 
-	public void setStudent_Materie(Student_Materie student_materie) {
-		this.student_materie = student_materie;
+	public void setStudent_Materie(StudentMaterie studentMaterie) {
+		this.studentMaterie = studentMaterie;
 	}
 
 	public LocalDate getData_curs() {
@@ -93,23 +93,24 @@ public class Student_Materie_Prezenta {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Student_Materie_Prezenta)) {
+		if (!(o instanceof StudentMateriePrezenta)) {
 			return false;
 		}
-		Student_Materie_Prezenta that = (Student_Materie_Prezenta) o;
-		return id.equals(that.id) && student_materie.equals(that.student_materie) && data_curs.equals(that.data_curs) && uuid.equals(that.uuid) && valabilitate.equals(that.valabilitate) && prezenta.equals(that.prezenta);
+		StudentMateriePrezenta that = (StudentMateriePrezenta) o;
+		return id.equals(that.id) && studentMaterie.equals(that.studentMaterie) && data_curs.equals(that.data_curs)
+				&& uuid.equals(that.uuid) && valabilitate.equals(that.valabilitate) && prezenta.equals(that.prezenta);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, student_materie, data_curs, uuid, valabilitate, prezenta);
+		return Objects.hash(id, studentMaterie, data_curs, uuid, valabilitate, prezenta);
 	}
 
 	@Override
 	public String toString() {
 		return "Student_Materie_Prezenta{" +
 				"id=" + id +
-				", materie=" + student_materie +
+				", materie=" + studentMaterie +
 				", data_curs='" + data_curs + '\'' +
 				", uuid=" + uuid +
 				", valabilitate='" + valabilitate + '\'' +

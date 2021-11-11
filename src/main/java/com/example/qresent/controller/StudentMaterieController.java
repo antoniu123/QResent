@@ -1,10 +1,12 @@
 package com.example.qresent.controller;
 
+import com.example.qresent.model.Materie;
 import com.example.qresent.model.Student;
-import com.example.qresent.model.Student_Materie;
-import com.example.qresent.repository.MaterieRepository;
+import com.example.qresent.model.StudentMaterie;
 import com.example.qresent.service.ApplicationUserService;
+import com.example.qresent.service.MaterieService;
 import com.example.qresent.service.StudentMaterieService;
+import com.example.qresent.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,78 +20,94 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 public class StudentMaterieController {
-	private StudentMaterieService studentMaterieService;
 
-	private MaterieRepository materieRepository;
+	private final StudentService studentService;
 
-	private ApplicationUserService applicationUserService;
+	private final MaterieService materieService;
+
+	private final StudentMaterieService studentMaterieService;
+
+	private final ApplicationUserService applicationUserService;
 
 	@Autowired
-	public StudentMaterieController(StudentMaterieService studentMaterieService, MaterieRepository materieRepository,
-									ApplicationUserService applicationUserService) {
+	public StudentMaterieController(final StudentService studentService,
+									final MaterieService materieService,
+									final StudentMaterieService studentMaterieService,
+									final ApplicationUserService applicationUserService) {
+		this.studentService = studentService;
+		this.materieService = materieService;
 		this.studentMaterieService = studentMaterieService;
-		this.materieRepository = materieRepository;
 		this.applicationUserService = applicationUserService;
 	}
 
-	@GetMapping("/student_materie/all")
-	public ModelAndView getAllGrades() {
-		String all = new String("all");
-		ModelAndView modelAndView = new ModelAndView("Student_Materie_List");
-		List<Student_Materie> student_materieList = studentMaterieService.findAll();
+	@GetMapping("/studentmaterii")
+	public ModelAndView getAllStudentMateries() {
+		String all = "all";
+		ModelAndView modelAndView = new ModelAndView("studentMaterieList");
+		List<StudentMaterie> student_materieList = studentMaterieService.findAll();
 		modelAndView.addObject("student_materie", student_materieList);
 		modelAndView.addObject(all);
 		return modelAndView;
 	}
 
-	@GetMapping("/student/{studentId}/studentmaterie")
-	public ModelAndView getGradesByStudent(@PathVariable Long studentId) {
-		ModelAndView modelAndView = new ModelAndView("Student_Materie_List");
-		List<Student_Materie> student_materieList = studentMaterieService.findByStudentId(studentId);
+	@GetMapping("/studentmaterii/{studentId}")
+	public ModelAndView getMateriesByStudent(@PathVariable Long studentId) {
+		ModelAndView modelAndView = new ModelAndView("studentMaterieForm");
+		List<Materie> materieList = studentMaterieService.findAllMaterieByStudent(studentId);
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Student myStudent = applicationUserService.findByName(user.getUsername()).getStudent();
 		Long id = null;
 		if (Objects.nonNull(myStudent)) {
 			id = myStudent.getId();
 		}
-		modelAndView.addObject("student_materie", student_materieList);
+		modelAndView.addObject("materii", materieList);
 		modelAndView.addObject("studentId", id);
 		return modelAndView;
 	}
 
 	@GetMapping("/studentmaterie/add")
-	public ModelAndView addGrade() {
-		Student_Materie grade = new Student_Materie();
-		List<Student_Materie> student_materieList = studentMaterieService.findAll();
-		ModelAndView modelAndView = new ModelAndView("Student_Materie_Form");
-		modelAndView.addObject("student_materieList", student_materieList);
+	public ModelAndView addStudentMaterie() {
+		StudentMaterie studentMaterie = new StudentMaterie();
+		List<Student> studentList = studentService.listAllStudents();
+		List<Materie> materieList = materieService.listMaterii();
+		ModelAndView modelAndView = new ModelAndView("studentMaterieForm");
+		modelAndView.addObject("studentList", studentList);
+		modelAndView.addObject("materieList", materieList);
+		modelAndView.addObject("studentMaterie", studentMaterie);
+		return modelAndView;
+	}
+
+	@GetMapping("/studentmaterie/{studentmaterieId}")
+	public ModelAndView editStudentMaterie(@PathVariable Long studentmaterieId, Model model) {
+		StudentMaterie studentMaterie = studentMaterieService.findById(studentmaterieId).orElseGet(StudentMaterie::new);
+		ModelAndView modelAndView = new ModelAndView("studentMaterieForm");
+		modelAndView.addObject("studentId", studentMaterie.getStudent().getId());
+		modelAndView.addObject("materieId", studentMaterie.getMaterie().getId());
+		modelAndView.addObject("studentMaterie", studentMaterie);
 		return modelAndView;
 	}
 
 	@PostMapping("/studentmaterie")
-	public String saveGrade(@ModelAttribute("grade") Student_Materie student_materie, Model model) {
-		studentMaterieService.save(student_materie);
-		return "redirect:/grades/all";
+	public String saveStudentMaterie(@ModelAttribute("studentMaterie") StudentMaterie studentMaterie, Model model) {
+		studentMaterieService.save(studentMaterie);
+		return "redirect:/studentmaterii";
 	}
 
-	@GetMapping("/studentmaterie/{studentMaterieId}")
-	public ModelAndView editStudentMaterie(@PathVariable Long studentMaterieId, Model model) {
-		Student_Materie student_materie = studentMaterieService.findById(studentMaterieId).orElseGet(Student_Materie::new);
-		ModelAndView modelAndView = new ModelAndView("gradesForm");
-		modelAndView.addObject("studentId", student_materie.getStudent().getId());
-		modelAndView.addObject("subjectId", student_materie.getMaterie().getId());
-		modelAndView.addObject("grade", student_materie);
-		return modelAndView;
-	}
+//	@GetMapping("/studentmaterie/{materieId}")
+//	public ModelAndView editStudentMaterie(@PathVariable Long materieId, Model model) {
+//		Materie materie = materieService.findMaterieById(materieId).orElseGet(Materie::new);
+//		ModelAndView modelAndView = new ModelAndView("studentMaterieForm");
+//		modelAndView.addObject("grade", materie);
+//		return modelAndView;
+//	}
 
 	@GetMapping("/studentmaterie/delete/{studentMaterieId}")
-	public String deleteGrade(@PathVariable Long studentMaterieId) {
+	public String deleteStudentMaterie(@PathVariable Long studentMaterieId) {
 		studentMaterieService.delete(studentMaterieId);
-		return "redirect:/studentmaterie/all";
+		return "redirect:/studentmaterii";
 	}
 
 }

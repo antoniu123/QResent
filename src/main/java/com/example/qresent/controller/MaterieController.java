@@ -1,7 +1,6 @@
 package com.example.qresent.controller;
 
 import com.example.qresent.model.Materie;
-import com.example.qresent.model.Student;
 import com.example.qresent.service.MaterieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ public class MaterieController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/materii/add")
+    @GetMapping(value = "/materie/add")
     public ModelAndView addMaterie() {
         Materie materie = new Materie();
         ModelAndView modelAndView = new ModelAndView("materieForm");
@@ -54,7 +53,7 @@ public class MaterieController {
 
     @GetMapping(value = "/materie/{id}")
     public String editMaterie(@PathVariable Long id, Model model) {
-        model.addAttribute("materie", materieService.findById(id));
+        model.addAttribute("materie", materieService.findMaterieById(id));
         return "materieForm";
     }
 

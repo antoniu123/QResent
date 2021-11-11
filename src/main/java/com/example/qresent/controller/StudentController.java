@@ -64,7 +64,7 @@ public class StudentController {
 
 	@GetMapping(value = "/student/{id}")
 	public String editStudent(@PathVariable Long id, Model model) {
-		model.addAttribute("student", studentService.findById(id));
+		model.addAttribute("student", studentService.findStudentById(id));
 		return "studentForm";
 	}
 
@@ -78,7 +78,7 @@ public class StudentController {
 		if (Objects.nonNull(myStudent)) {
 			studentId = myStudent.getId();
 		}
-		modelAndView.addObject("students", studentService.findById(id).orElseGet(Student::new));
+		modelAndView.addObject("students", studentService.findStudentById(id).orElseGet(Student::new));
 		modelAndView.addObject("my", my);
 		modelAndView.addObject("studentId", studentId);
 		return modelAndView;

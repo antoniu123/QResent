@@ -27,7 +27,7 @@ public class Orar {
 
 	@Column(name = "DATA_CURS_ORA", nullable = false)
 	@Size(min = 3, max = 50)
-	private LocalDate ora;
+	private LocalDate zi;
 
 	public Long getId() {
 		return id;
@@ -45,12 +45,12 @@ public class Orar {
 		this.materie = materie;
 	}
 
-	public LocalDate getOra() {
-		return ora;
+	public LocalDate getZi() {
+		return zi;
 	}
 
-	public void setOra(LocalDate ora) {
-		this.ora = ora;
+	public void setZi(LocalDate ora) {
+		this.zi = ora;
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class Orar {
 			return false;
 		}
 		Orar orar = (Orar) o;
-		return id.equals(orar.id) && materie.equals(orar.materie) && ora.equals(orar.ora);
+		return id.equals(orar.id) && materie.equals(orar.materie) && zi.equals(orar.zi);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, materie, ora);
+		return Objects.hash(id, materie, zi);
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class Orar {
 		return "Orar{" +
 				"id=" + id +
 				", materie=" + materie +
-				", ora='" + ora + '\'' +
+				", ora='" + zi + '\'' +
 				'}';
 	}
 }
