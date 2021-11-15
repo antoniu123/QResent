@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +48,10 @@ public class OrarController {
 	@GetMapping(value = "/orar/prezente")
 	public ModelAndView allOrarPrezente() {
 		String all = "all";
-		List<StudentMateriePrezenta> studentMateriePrezentaList = studentMateriePrezentaService.findAll();
+		List<StudentMateriePrezenta> studentMateriePrezentaList = studentMateriePrezentaService.findAll()
+				.stream()
+				.sorted((a,b)-> (int) (b.getDataCurs().toEpochSecond(ZoneOffset.UTC) - a.getDataCurs().toEpochSecond(ZoneOffset.UTC)))
+				.collect(Collectors.toList());
 		ModelAndView modelAndView = new ModelAndView("allMateriePrezenta");
 		modelAndView.addObject("studentMateriePrezentaList", studentMateriePrezentaList);
 		modelAndView.addObject("all", all);
