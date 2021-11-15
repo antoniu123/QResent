@@ -54,10 +54,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/students").access("hasRole('ADMIN') or hasRole('TEACHER')")
 				.antMatchers("/students/{id}").access("hasRole('STUDENT')")
 				.antMatchers("/materii").access("hasRole('TEACHER')")
-				.antMatchers("/materie").access("hasRole('TEACHER')")
+				.antMatchers("/materie/**").access("hasRole('TEACHER')")
 				.antMatchers("/studentmaterie").access("hasRole('TEACHER')")
 				.antMatchers("/studentmaterii").access("hasRole('TEACHER')")
 
+				.antMatchers("/prezenta/**").access("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+				.antMatchers("/prezente/**").access("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+
+				.antMatchers("/public/**").permitAll()
+				.antMatchers("/success").permitAll()
 				.antMatchers("/css/evidenta.css").permitAll()
 				.antMatchers("/img/index.jpg").permitAll()
 

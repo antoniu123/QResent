@@ -47,8 +47,8 @@ public class StudentMaterieController {
 	public ModelAndView getAllStudentMateries() {
 		String all = "all";
 		ModelAndView modelAndView = new ModelAndView("studentMaterieList");
-		List<StudentMaterie> student_materieList = studentMaterieService.findAll();
-		modelAndView.addObject("student_materie", student_materieList);
+		List<StudentMaterie> studentMaterieList = studentMaterieService.findAll();
+		modelAndView.addObject("studentMaterieList", studentMaterieList);
 		modelAndView.addObject(all);
 		return modelAndView;
 	}

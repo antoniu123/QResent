@@ -1,6 +1,6 @@
 package com.example.qresent.service;
 
-import com.example.qresent.model.Materie;
+import com.example.qresent.model.Orar;
 import com.example.qresent.model.StudentMaterie;
 import com.example.qresent.model.StudentMateriePrezenta;
 import com.example.qresent.repository.MaterieRepository;
@@ -9,10 +9,8 @@ import com.example.qresent.repository.StudentMateriePrezentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -65,30 +63,27 @@ public class StudentMateriePrezentaService {
 				.collect(Collectors.toList());
 	}
 
-	public void generarePrezenta(Long materieId, LocalDate zi){
-		Materie materie = materieRepository.findById(materieId).orElseGet(Materie::new);
-		if (Objects.nonNull(materie))
-		orarRepository.findAllByMaterieAndZi(materie, zi)
-					.forEach(orar->{
-							studentMaterieService.findByMaterieId(materieId).forEach(sm->{
-								StudentMateriePrezenta studentMateriePrezenta = new StudentMateriePrezenta();
-								studentMateriePrezenta.setStudent_Materie(sm);
-								studentMateriePrezenta.setPrezenta(0);
-								studentMateriePrezenta.setData_curs(orar.getZi());
-								studentMateriePrezenta.setUuid(UUID.randomUUID());
-								studentMateriePrezenta.setValabilitate(orar.getZi().plus(10L, ChronoUnit.MINUTES));
-								studentMateriePrezentaRepository.save(studentMateriePrezenta);
-							});
-		});
+	public void generarePrezenta(Long orarId){
+		Orar orar = orarRepository.findById(orarId).orElseGet(Orar::new);
+
+		studentMaterieService.findByMaterieId(orar.getMaterie().getId())
+				.forEach(sm->{
+					StudentMateriePrezenta studentMateriePrezenta = new StudentMateriePrezenta();
+					studentMateriePrezenta.setStudentMaterie(sm);
+					studentMateriePrezenta.setPrezenta(0);
+					studentMateriePrezenta.setDataCurs(orar.getZi());
+					studentMateriePrezenta.setUuid(UUID.randomUUID());
+					studentMateriePrezenta.setValabilitate(orar.getZi().plus(10L, ChronoUnit.MINUTES));
+					studentMateriePrezentaRepository.save(studentMateriePrezenta);
+				});
 	}
 
 	public void setPrezenta(UUID uuid){
 		List<StudentMateriePrezenta> studentMateriePrezentaList = studentMateriePrezentaRepository.findAllByUuid(uuid);
 		if (studentMateriePrezentaList.isEmpty())
 			throw new RuntimeException("valoare UUID incorecta");
-		int rez = studentMateriePrezentaRepository.setPrezenta(uuid);
-		if (rez==0) {
-			throw new RuntimeException("prezenta nu este confirmata");
-		}
+		StudentMateriePrezenta studentMateriePrezenta = studentMateriePrezentaList.get(0);
+		studentMateriePrezenta.setPrezenta(1);
+		studentMateriePrezentaRepository.save(studentMateriePrezenta);
 	}
 }

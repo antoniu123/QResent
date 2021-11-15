@@ -54,9 +54,9 @@ CREATE TABLE student_materie_prezenta
 (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     student_materie_id INTEGER NOT NULL,
-    data_curs DATE NOT NULL,
+    data_curs TIMESTAMP NOT NULL,
     identificator UUID,
-    valabilitate DATE,
+    valabilitate TIMESTAMP,
     prezenta INTEGER
 );
 
@@ -66,7 +66,7 @@ CREATE TABLE orar
 (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     materie_id INTEGER NOT NULL,
-    data_curs_ora DATE NOT NULL
+    data_curs_ora TIMESTAMP NOT NULL
 );
 
 CREATE TABLE parametri
@@ -83,3 +83,16 @@ ALTER TABLE student_materie ADD CONSTRAINT fk_materie_id FOREIGN KEY (materie_id
 ALTER TABLE student_materie_prezenta ADD CONSTRAINT fk_student_materie_id FOREIGN KEY (student_materie_id) REFERENCES student_materie(id);
 ALTER TABLE orar ADD CONSTRAINT fk_orar_materie_id FOREIGN KEY (materie_id) REFERENCES materie(id);
 
+insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('11-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
+insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('12-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
+insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('13-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
+
+
+-- insert into student_materie(student_id, materie_id) values(193,66);
+-- insert into student_materie(student_id, materie_id) values(193,67);
+-- insert into student_materie(student_id, materie_id) values(193,68);
+--
+-- insert into student_materie(student_id, materie_id) values(161,65);
+-- insert into student_materie(student_id, materie_id) values(161,66);
+-- insert into student_materie(student_id, materie_id) values(161,67);
+-- insert into student_materie(student_id, materie_id) values(161,68);

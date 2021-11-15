@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +27,7 @@ public class Orar {
 
 	@Column(name = "DATA_CURS_ORA", nullable = false)
 	@Size(min = 3, max = 50)
-	private LocalDate zi;
+	private LocalDateTime zi;
 
 	public Long getId() {
 		return id;
@@ -45,11 +45,11 @@ public class Orar {
 		this.materie = materie;
 	}
 
-	public LocalDate getZi() {
+	public LocalDateTime getZi() {
 		return zi;
 	}
 
-	public void setZi(LocalDate ora) {
+	public void setZi(LocalDateTime ora) {
 		this.zi = ora;
 	}
 

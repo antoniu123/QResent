@@ -2,9 +2,7 @@ package com.example.qresent.service;
 
 import com.example.qresent.model.Materie;
 import com.example.qresent.model.StudentMaterie;
-import com.example.qresent.repository.MaterieRepository;
 import com.example.qresent.repository.StudentMaterieRepository;
-import com.example.qresent.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

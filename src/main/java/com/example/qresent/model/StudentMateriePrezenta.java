@@ -9,8 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -27,15 +26,13 @@ public class StudentMateriePrezenta {
 	private StudentMaterie studentMaterie;
 
 	@Column(name = "DATA_CURS", nullable = false)
-	@Size(min = 3, max = 30)
-	private LocalDate data_curs;
+	private LocalDateTime dataCurs;
 
 	@Column(name = "IDENTIFICATOR", nullable = false)
 	private UUID uuid;
 
 	@Column(name = "VALABILITATE", nullable = false)
-	@Size(min = 3, max = 30)
-	private LocalDate valabilitate;
+	private LocalDateTime valabilitate;
 
 	@Column(name = "PREZENTA", nullable = false)
 	private Integer prezenta;
@@ -52,16 +49,16 @@ public class StudentMateriePrezenta {
 		return studentMaterie;
 	}
 
-	public void setStudent_Materie(StudentMaterie studentMaterie) {
+	public void setStudentMaterie(StudentMaterie studentMaterie) {
 		this.studentMaterie = studentMaterie;
 	}
 
-	public LocalDate getData_curs() {
-		return data_curs;
+	public LocalDateTime getDataCurs() {
+		return dataCurs;
 	}
 
-	public void setData_curs(LocalDate data_curs) {
-		this.data_curs = data_curs;
+	public void setDataCurs(LocalDateTime data_curs) {
+		this.dataCurs = data_curs;
 	}
 
 	public UUID getUuid() {
@@ -72,11 +69,11 @@ public class StudentMateriePrezenta {
 		this.uuid = uuid;
 	}
 
-	public LocalDate getValabilitate() {
+	public LocalDateTime getValabilitate() {
 		return valabilitate;
 	}
 
-	public void setValabilitate(LocalDate valabilitate) {
+	public void setValabilitate(LocalDateTime valabilitate) {
 		this.valabilitate = valabilitate;
 	}
 
@@ -97,13 +94,13 @@ public class StudentMateriePrezenta {
 			return false;
 		}
 		StudentMateriePrezenta that = (StudentMateriePrezenta) o;
-		return id.equals(that.id) && studentMaterie.equals(that.studentMaterie) && data_curs.equals(that.data_curs)
+		return id.equals(that.id) && studentMaterie.equals(that.studentMaterie) && dataCurs.equals(that.dataCurs)
 				&& uuid.equals(that.uuid) && valabilitate.equals(that.valabilitate) && prezenta.equals(that.prezenta);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, studentMaterie, data_curs, uuid, valabilitate, prezenta);
+		return Objects.hash(id, studentMaterie, dataCurs, uuid, valabilitate, prezenta);
 	}
 
 	@Override
@@ -111,7 +108,7 @@ public class StudentMateriePrezenta {
 		return "Student_Materie_Prezenta{" +
 				"id=" + id +
 				", materie=" + studentMaterie +
-				", data_curs='" + data_curs + '\'' +
+				", data_curs='" + dataCurs + '\'' +
 				", uuid=" + uuid +
 				", valabilitate='" + valabilitate + '\'' +
 				", prezenta=" + prezenta +

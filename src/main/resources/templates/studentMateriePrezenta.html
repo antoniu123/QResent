@@ -17,31 +17,26 @@
 <div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
 <div class="container">
     <div>
-        <h2>Lista materii pentru fiecare studenti</h2>
-
-
+        <h2>Lista Prezenta pentru fiecare student</h2>
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Grupa</th>
-                <th>Info</th>
+                <th>Materie</th>
+                <th>Data Curs</th>
+                <th>Valabilitate</th>
+                <th>Prezenta</th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="studentMaterie,iterStat : ${studentMaterieList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
-                <td th:hidden="${studentMaterie.id}"></td>
-                <td th:text="${studentMaterie.student.lastName}"></td>
-                <td th:text="${studentMaterie.student.firstName}"></td>
-                <td th:text="${studentMaterie.student.group}"></td>
-                <td th:text="${studentMaterie.materie.info}"></td>
-
-                <div th:if="${all}">
-                    <td><a class="btn btn-success btn-sm" href="studentForm.html" th:href="@{'/studentmaterie/'+${studentMaterie.id}}">Edit</a></td>
-                    <td><a class="btn btn-danger btn-sm" th:href="@{'studentmaterie/delete/'+${studentMaterie.id}}">Delete</a></td>
-                </div>
+            <tr th:each="studentMateriePrezenta,iterStat : ${studentMateriePrezentaList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${studentMateriePrezenta.id}"></td>
+                <td th:text="${studentMateriePrezenta.getStudentMaterie().getMaterie().getInfo()}"></td>
+                <td th:hidden="${studentMateriePrezenta.getUuid()}"></td>
+                <td th:text="${studentMateriePrezenta.getDataCurs()}"></td>
+                <td th:text="${studentMateriePrezenta.getValabilitate()}"></td>
+                <td th:text="${studentMateriePrezenta.getPrezenta()}"></td>
+                <td><a class="btn btn-danger btn-sm" th:href="@{'/prezenta/'+${studentMateriePrezenta.getUuid()}}">Validare Prezenta</a></td>
             </tr>
             </tbody>
         </table>

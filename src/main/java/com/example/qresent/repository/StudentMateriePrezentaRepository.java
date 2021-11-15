@@ -12,9 +12,6 @@ import java.util.UUID;
 
 @Repository
 public interface StudentMateriePrezentaRepository extends JpaRepository <StudentMateriePrezenta, Long> {
-	@Modifying(clearAutomatically = true)
-	@Query("update StudentMateriePrezenta e set e.prezenta=1 where e.uuid = :uuid and e.prezenta = 0 ")
-	int setPrezenta(@Param("uuid")UUID uuid);
 
 	List<StudentMateriePrezenta> findAllByUuid(UUID uuid);
 

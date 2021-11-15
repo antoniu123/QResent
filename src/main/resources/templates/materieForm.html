@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="" lang="en">
+<head lang="en">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+    <title>Aplicatie Evidenta Scoala</title>
+</head>
+<!--<div th:background="/img/index.jpg"></div>-->
+<body style="background-image: url('/img/index.jpg');">
+<div class="container">
+    <div th:align="center">
+        <button type="button" class="btn btn-primary">
+            <a href="#" th:href="@{'/'}">Home</a>
+        </button>
+    </div>
+    <h2>Insert Detalii Materie</h2>
+    <div>
+        <form class="form-horizontal" th:object="${materie}" th:action="@{'/materie'}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+                <h2 class="col-sm-2 control-label">Info</h2>
+                <div>
+                    <h1>
+                        <label>
+                            <input type="text" th:field="*{info}"/>
+                        </label>
+                    </h1>
+                </div>
+            </div>
+            <div class="form-group">
+                <h2 class="col-sm-2 control-label">Cerinte</h2>
+                <div>
+                    <h1>
+                        <label>
+                            <input type="text" th:field="*{cerinte}"/>
+                        </label>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h2 class="col-sm-2 control-label">Bonus</h2>
+                <div>
+                    <h1>
+                        <label>
+                            <input type="text" th:field="*{bonus}"/>
+                        </label>
+                    </h1>
+                </div>
+            </div>
+
+
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+            </div>
+
+            <div >
+                <h3><button type="submit" class="btn btn-primary">Submit</button></h3>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

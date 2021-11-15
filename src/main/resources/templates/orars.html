@@ -17,31 +17,21 @@
 <div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
 <div class="container">
     <div>
-        <h2>Lista materii pentru fiecare studenti</h2>
-
 
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
+                <th>Nume</th>
+                <th>Prenume</th>
                 <th>Grupa</th>
-                <th>Info</th>
-
             </tr>
             </thead>
             <tbody>
-            <tr th:each="studentMaterie,iterStat : ${studentMaterieList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
-                <td th:hidden="${studentMaterie.id}"></td>
-                <td th:text="${studentMaterie.student.lastName}"></td>
-                <td th:text="${studentMaterie.student.firstName}"></td>
-                <td th:text="${studentMaterie.student.group}"></td>
-                <td th:text="${studentMaterie.materie.info}"></td>
-
-                <div th:if="${all}">
-                    <td><a class="btn btn-success btn-sm" href="studentForm.html" th:href="@{'/studentmaterie/'+${studentMaterie.id}}">Edit</a></td>
-                    <td><a class="btn btn-danger btn-sm" th:href="@{'studentmaterie/delete/'+${studentMaterie.id}}">Delete</a></td>
-                </div>
+            <tr th:each="orar,iterStat : ${orarList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${orar.id}"></td>
+                <td th:text="${orar.getMaterie().getInfo()}"></td>
+                <td th:text="${orar.getZi()}"></td>
+                <td><a class="btn btn-danger btn-sm" th:href="@{'/prezente/generare/'+${orar.id}}">Generare</a></td>
             </tr>
             </tbody>
         </table>

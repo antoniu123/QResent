@@ -36,6 +36,10 @@
                     <li>
                         <a th:href="@{'/students/'+${studentId}}">Student info</a>
                     </li>
+                    <li>
+                        <a th:href="@{'/prezente/student'}">Student prezente</a>
+                    </li>
+
                 </ul>
             </li>
             <li class="active" th:if="${#httpServletRequest.isUserInRole('TEACHER')}">
@@ -50,7 +54,7 @@
                     </li>
 
                     <li>
-                        <a th:href="@{/materii/add}">Materie add</a>
+                        <a th:href="@{/materie/add}">Materie add</a>
                     </li>
 
                     <li>
@@ -59,6 +63,10 @@
 
                     <li>
                         <a th:href="@{/studentmaterie/add}">Asignare Materii catre studenti</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/orar/all}">Orar</a>
                     </li>
 
                 </ul>
