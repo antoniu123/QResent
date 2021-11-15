@@ -86,6 +86,7 @@ ALTER TABLE orar ADD CONSTRAINT fk_orar_materie_id FOREIGN KEY (materie_id) REFE
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('11-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('12-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('13-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
+insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('15-11-2021, 13:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 
 
 -- insert into student_materie(student_id, materie_id) values(193,66);

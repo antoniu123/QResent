@@ -9,8 +9,10 @@ import com.example.qresent.repository.StudentMateriePrezentaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,11 +43,16 @@ public class StudentMateriePrezentaService {
 		return studentMateriePrezentaRepository.findById(id);
 	}
 
+	public List<StudentMateriePrezenta> findAll(){
+		return studentMateriePrezentaRepository.findAll();
+	}
+
 	public List<StudentMateriePrezenta> findAllActiveByStudentId(Long studentId){
 		List<StudentMaterie> listOfStudentMaterie = studentMaterieService.findByStudentId(studentId);
 		return studentMateriePrezentaRepository.findAll().stream()
 						.filter(smp->listOfStudentMaterie.contains(smp.getStudentMaterie()))
 				        .filter(smp->smp.getPrezenta().equals(0))
+				        .filter(smp->smp.getValabilitate().isAfter(LocalDateTime.now()))
 						.collect(Collectors.toList());
 	}
 
@@ -66,22 +73,28 @@ public class StudentMateriePrezentaService {
 	public void generarePrezenta(Long orarId){
 		Orar orar = orarRepository.findById(orarId).orElseGet(Orar::new);
 
-		studentMaterieService.findByMaterieId(orar.getMaterie().getId())
-				.forEach(sm->{
-					StudentMateriePrezenta studentMateriePrezenta = new StudentMateriePrezenta();
-					studentMateriePrezenta.setStudentMaterie(sm);
-					studentMateriePrezenta.setPrezenta(0);
-					studentMateriePrezenta.setDataCurs(orar.getZi());
-					studentMateriePrezenta.setUuid(UUID.randomUUID());
-					studentMateriePrezenta.setValabilitate(orar.getZi().plus(10L, ChronoUnit.MINUTES));
-					studentMateriePrezentaRepository.save(studentMateriePrezenta);
-				});
+		if (Objects.nonNull(orar.getMaterie())){
+			studentMaterieService.findByMaterieId(orar.getMaterie().getId())
+					.forEach(sm->{
+						StudentMateriePrezenta studentMateriePrezenta = new StudentMateriePrezenta();
+						studentMateriePrezenta.setStudentMaterie(sm);
+						studentMateriePrezenta.setPrezenta(0);
+						LocalDateTime now = LocalDateTime.now();
+						studentMateriePrezenta.setDataCurs(now);
+						studentMateriePrezenta.setUuid(UUID.randomUUID());
+						studentMateriePrezenta.setValabilitate(now.plus(10L, ChronoUnit.MINUTES));
+						studentMateriePrezentaRepository.save(studentMateriePrezenta);
+					});
+		}
 	}
 
 	public void setPrezenta(UUID uuid){
 		List<StudentMateriePrezenta> studentMateriePrezentaList = studentMateriePrezentaRepository.findAllByUuid(uuid);
 		if (studentMateriePrezentaList.isEmpty())
 			throw new RuntimeException("valoare UUID incorecta");
+		//list can have only a single element
+		if (LocalDateTime.now().isAfter(studentMateriePrezentaList.get(0).getValabilitate()))
+			throw new RuntimeException("data limita depasita");
 		StudentMateriePrezenta studentMateriePrezenta = studentMateriePrezentaList.get(0);
 		studentMateriePrezenta.setPrezenta(1);
 		studentMateriePrezentaRepository.save(studentMateriePrezenta);
