@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Aplicatie Evidenta Scoala</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+
+</head>
+<body style="background-image: url('/img/index.jpg');">
+<div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
+<div class="container">
+    <div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Grupa</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orar,iterStat : ${orarList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${orar.id}"></td>
+                <td th:text="${orar.getMaterie().getInfo()}"></td>
+                <td th:text="${orar.getZi()}"></td>
+                <td><a class="btn btn-danger btn-sm" th:href="@{'/prezente/generare/'+${orar.id}}">Generare</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Aplicatie Evidenta Scoala</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+
+</head>
+<body style="background-image: url('/img/index.jpg');">
+<div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
+<div class="container">
+    <div>
+        <h2>Lista materii pentru fiecare studenti</h2>
+
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Grupa</th>
+                <th>Info</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="studentMaterie,iterStat : ${studentMaterieList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${studentMaterie.id}"></td>
+                <td th:text="${studentMaterie.student.lastName}"></td>
+                <td th:text="${studentMaterie.student.firstName}"></td>
+                <td th:text="${studentMaterie.student.group}"></td>
+                <td th:text="${studentMaterie.materie.info}"></td>
+
+                <div th:if="${all}">
+                    <td><a class="btn btn-success btn-sm" href="studentForm.html" th:href="@{'/studentmaterie/'+${studentMaterie.id}}">Edit</a></td>
+                    <td><a class="btn btn-danger btn-sm" th:href="@{'studentmaterie/delete/'+${studentMaterie.id}}">Delete</a></td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "STUDENT_MATERIE")
-public class Student_Materie {
+public class StudentMaterie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -56,10 +56,10 @@ public class Student_Materie {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Student_Materie)) {
+		if (!(o instanceof StudentMaterie)) {
 			return false;
 		}
-		Student_Materie that = (Student_Materie) o;
+		StudentMaterie that = (StudentMaterie) o;
 		return id.equals(that.id) && student.equals(that.student) && materie.equals(that.materie);
 	}
 

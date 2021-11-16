@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Aplicatie Evidenta Scoala</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+
+</head>
+<body style="background-image: url('/img/index.jpg');">
+<div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
+<div class="container">
+    <div>
+<!--        <div th:if="${all}">-->
+<!--            <h2>Students List</h2>-->
+<!--        </div>-->
+
+<!--        <div th:if="${my}">-->
+<!--            <h2>My info</h2>-->
+<!--        </div>-->
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Info</th>
+                <th>Cerinte</th>
+                <th>Bonus</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="materie,iterStat : ${materii}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${materie.id}"></td>
+                <td th:text="${materie.info}"></td>
+                <td th:text="${materie.cerinte}"></td>
+                <td th:text="${materie.bonus}"></td>
+                <div th:if="${all}">
+                    <td><a class="btn btn-success btn-sm" href="materieForm.html" th:href="@{'/materie/'+${materie.id}}">Edit</a></td>
+                    <td><a class="btn btn-danger btn-sm" th:href="@{'/materie/delete/'+${materie.id}}">Delete</a></td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

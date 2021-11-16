@@ -12,16 +12,18 @@ body {
 }
 .navbar-default {
     border-color: white;
-    background-color: #0000ff;
+    background-color: #c800ff;
  }
 
 h1{
-    background-color: #1a07bc;
+    background-color: rgba(255, 0, 0, 0.89);
 }
 
 h2{
     align: left;
 }
+
+
 
 input{
 	
@@ -29,7 +31,7 @@ input{
 }
 
 div {
-    background-color: #0c027b;
+    background-color: #027b36;
 }
 
 p {

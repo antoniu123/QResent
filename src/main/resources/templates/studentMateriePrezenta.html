@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Aplicatie Evidenta Scoala</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+
+</head>
+<body style="background-image: url('/img/index.jpg');">
+<div th:replace="fragments/sidebar.html :: page(studentId=${studentId})"></div>
+<div class="container">
+    <div>
+        <h2>Lista Prezenta pentru fiecare student</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Materie</th>
+                <th>Data Curs</th>
+                <th>Valabilitate</th>
+                <th>Prezenta</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="studentMateriePrezenta,iterStat : ${studentMateriePrezentaList}" th:class="${iterStat.odd}?  'odd' : 'even'" class="odd">
+                <td th:hidden="${studentMateriePrezenta.id}"></td>
+                <td th:text="${studentMateriePrezenta.getStudentMaterie().getMaterie().getInfo()}"></td>
+                <td th:hidden="${studentMateriePrezenta.getUuid()}"></td>
+                <td th:text="${studentMateriePrezenta.getDataCurs()}"></td>
+                <td th:text="${studentMateriePrezenta.getValabilitate()}"></td>
+                <td th:text="${studentMateriePrezenta.getPrezenta()}"></td>
+                <td><a class="btn btn-danger btn-sm" th:href="@{'/prezenta/'+${studentMateriePrezenta.getUuid()}}">Validare Prezenta</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

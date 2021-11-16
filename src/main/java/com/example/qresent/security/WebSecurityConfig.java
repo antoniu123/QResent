@@ -53,19 +53,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/student/delete/{id}").access("hasRole('ADMIN')")
 				.antMatchers("/students").access("hasRole('ADMIN') or hasRole('TEACHER')")
 				.antMatchers("/students/{id}").access("hasRole('STUDENT')")
+				.antMatchers("/materii").access("hasRole('TEACHER')")
+				.antMatchers("/materie/**").access("hasRole('TEACHER')")
+				.antMatchers("/studentmaterie").access("hasRole('TEACHER')")
+				.antMatchers("/studentmaterii").access("hasRole('TEACHER')")
 
-				.antMatchers("/grade").access("hasRole('TEACHER')")
-				.antMatchers("grade/delete/{gradeId}").access("hasRole('TEACHER')")
-				.antMatchers("grades/add").access("hasRole('TEACHER')")
-				.antMatchers("grade/{gradeId}").access("hasRole('TEACHER')")
-				.antMatchers("grades/all").access("hasRole('TEACHER')")
-				.antMatchers("grades/{gradeId}").access("hasRole('STUDENT')")
+				.antMatchers("/prezenta/**").access("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
+				.antMatchers("/prezente/**").access("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
 
-				.antMatchers("/averages").access("hasRole('TEACHER')")
-				.antMatchers("averages/action}").access("hasRole('TEACHER')")
-				.antMatchers("averages/save").access("hasRole('TEACHER')")
-				.antMatchers("student/{studentId}/average").access("hasRole('STUDENT')")
-
+				.antMatchers("/public/**").permitAll()
+				.antMatchers("/success").permitAll()
 				.antMatchers("/css/evidenta.css").permitAll()
 				.antMatchers("/img/index.jpg").permitAll()
 

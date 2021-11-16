@@ -30,7 +30,7 @@ public class StudentService {
 		studentRepository.delete(studentRepository.findById(id).orElseGet(Student::new));
 	}
 
-	public Optional<Student> findById(Long id) {
+	public Optional<Student> findStudentById(Long id) {
 		return studentRepository.findById(id);
 	}
 }

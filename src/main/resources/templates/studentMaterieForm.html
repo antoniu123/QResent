@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="" lang="en">
+<head lang="en">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!-- Our Custom CSS -->
+
+  <!-- Scrollbar Custom CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+  <link th:href="@{/css/evidenta.css}" href="/css/evidenta.css"  rel="stylesheet" type="text/css"  />
+
+  <title>Aplicatie Evidenta Scoala</title>
+</head>
+<!--<div th:background="/img/index.jpg"></div>-->
+<body style="background-image: url('/img/index.jpg');">
+<div class="container">
+  <div th:align="center">
+    <button type="button" class="btn btn-primary">
+      <a href="#" th:href="@{'/'}">Home</a>
+    </button>
+  </div>
+  <h2>Asociere Student Materie</h2>
+  <div>
+    <form class="form-horizontal" th:each="studentMaterie,iterStat : ${studentMaterie}" th:action="@{'/studentmaterie'}" method="post">
+      <input type="hidden" th:field="*{studentMaterie.id}"/>
+
+      <div class="form-group" th:if="${studentList}">
+        <label class="col-sm-8">Student</label>
+        <select class="form-control"  th:field="*{studentMaterie.student}">
+          <option th:each="student : ${studentList}" th:value="${student.id}" th:text="${student.lastName} + ' ' + ${student.firstName}">Alege un student</option>
+        </select>
+      </div>
+
+      <div class="form-group" th:if="${studentId}">
+        <input type="hidden" th:field="*{studentMaterie.student}"/>
+      </div>
+
+      <div class="form-group" th:if="${materieList}">
+        <label class="col-sm-8">Subject</label>
+        <select class="form-control"  th:field="*{studentMaterie.materie}">
+          <option th:each="materie : ${materieList}" th:value="${materie.id}" th:text="${materie.info}">Alege o materie</option>
+        </select>
+      </div>
+
+      <div class="form-group" th:if="${materieId}">
+        <input type="hidden" th:field="*{studentMaterie.materie}"/>
+      </div>
+
+      <div >
+        <h3><button type="submit" class="btn btn-primary">Submit</button></h3>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
