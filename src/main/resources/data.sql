@@ -8,7 +8,7 @@ INSERT INTO tip_user(name) VALUES ('ADMINISTRATOR');
 INSERT INTO tip_user(name) VALUES ('TEACHER');
 INSERT INTO tip_user(name) VALUES ('STUDENT');
 
-CREATE TABLE applicationUser
+CREATE TABLE user
 (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username VARCHAR2(30) NOT NULL,
@@ -17,9 +17,10 @@ CREATE TABLE applicationUser
     student_id INTEGER
 );
 
-INSERT INTO applicationUser(username, password, tip_user_id, student_id) values('admin','$2a$10$btXmANN0tim6qqWt3EWZh.sg/VuKlOrO0FsTJp7Iw0idg.0w4RiE2', 1, null);
-INSERT INTO applicationUser(username, password, tip_user_id, student_id) values('teacher','$2a$10$650XR88kIqYmv05v6EvYyOZdmZZQMPLU.36B1tuGQSvazXYa8NNvu',2,null);
-INSERT INTO applicationUser(username, password, tip_user_id, student_id) values('student','$2a$10$gGMhgUSJ6b.2eCZwhJr/BOp9nEq3d/umX.ntQOkdFLL9Qm.WnBBwy',3,null);
+INSERT INTO user(username, password, tip_user_id, student_id) values('admin','$2a$10$btXmANN0tim6qqWt3EWZh.sg/VuKlOrO0FsTJp7Iw0idg.0w4RiE2', 1, null);
+INSERT INTO user(username, password, tip_user_id, student_id) values('teacher','$2a$10$650XR88kIqYmv05v6EvYyOZdmZZQMPLU.36B1tuGQSvazXYa8NNvu',2,null);
+INSERT INTO user(username, password, tip_user_id, student_id) values('student','$2a$10$gGMhgUSJ6b.2eCZwhJr/BOp9nEq3d/umX.ntQOkdFLL9Qm.WnBBwy',3,null);
+INSERT INTO user(username, password, tip_user_id, student_id) values('student_popescu','$2a$10$f71fV.xqz8lMhGttcE097eeXuWr93e0EYK9tUBeEBUJuEG7ut2zTu',3,null);
 
 CREATE TABLE student
 (
@@ -76,8 +77,8 @@ CREATE TABLE parametri
 
 insert into PARAMETRI values(10);
 
-ALTER TABLE applicationUser ADD CONSTRAINT fk_tip_user_id FOREIGN KEY (tip_user_id) REFERENCES tip_user(id);
-ALTER TABLE applicationUser ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student(id);
+ALTER TABLE user ADD CONSTRAINT fk_tip_user_id FOREIGN KEY (tip_user_id) REFERENCES tip_user(id);
+ALTER TABLE user ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student(id);
 ALTER TABLE student_materie ADD CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES student(id);
 ALTER TABLE student_materie ADD CONSTRAINT fk_materie_id FOREIGN KEY (materie_id) REFERENCES materie(id);
 ALTER TABLE student_materie_prezenta ADD CONSTRAINT fk_student_materie_id FOREIGN KEY (student_materie_id) REFERENCES student_materie(id);
@@ -87,7 +88,8 @@ insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('11-11-20
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('12-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('13-11-2021, 10:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('15-11-2021, 13:00:00','dd-MM-yyyy, hh:mm:ss','en'));
-
+insert into orar (materie_id, data_curs_ora) values( 65, PARSEDATETIME('18-11-2021, 09:00:00','dd-MM-yyyy, hh:mm:ss','en'));
+insert into orar (materie_id, data_curs_ora) values( 97, PARSEDATETIME('18-11-2021, 09:00:00','dd-MM-yyyy, hh:mm:ss','en'));
 
 -- insert into student_materie(student_id, materie_id) values(193,66);
 -- insert into student_materie(student_id, materie_id) values(193,67);

@@ -39,7 +39,9 @@
                     <li>
                         <a th:href="@{'/prezente/student'}">Student prezente</a>
                     </li>
-
+                    <li>
+                        <a th:href="@{'/myplot'}">Student prezente</a>
+                    </li>
                 </ul>
             </li>
             <li class="active" th:if="${#httpServletRequest.isUserInRole('TEACHER')}">
